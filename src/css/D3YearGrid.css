@@ -1,0 +1,64 @@
+.d3Container {
+  /* background-color: pink; */
+
+  margin-top: 10px;
+}
+
+.D3Svg {
+  /* background-color: lightblue; */
+}
+
+div.buttons {
+  /* border: 1px solid red; */
+
+  width: 330px;
+}
+
+.sortingButton {
+  background-color: white;
+  border: 1px solid white;
+
+  margin: 2px;
+  margin-left: 3px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  cursor: pointer;
+
+  display: block;
+  float: left;
+}
+
+.selectedButton {
+  border: 1px solid black;
+  box-shadow: 3px 3px 0px rgb(0 0 0);
+}
+
+.grid_controlers {
+  border-top: 1px solid black;
+  /* background-color: pink; */
+  padding-top: 10px;
+
+  height: 70px;
+}
+
+.musicSymbol {
+  font-size: 25px;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  /* display: inline; */
+}
+
+.slidecontainer {
+  /* border: 1px solid black; */
+
+  padding-top: 13px;
+  padding-left: 10px;
+
+  float: left;
+}

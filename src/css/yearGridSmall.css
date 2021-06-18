@@ -1,0 +1,11 @@
+.yearGridSmall {
+  width: 100%;
+
+  background-color: rgb(255, 255, 255);
+
+  display: grid;
+
+  /*                            20 columns with the same width */
+  grid-template-columns: repeat(20, 1fr);
+  /* grid-template-rows: repeat(2, 1fr); */
+}

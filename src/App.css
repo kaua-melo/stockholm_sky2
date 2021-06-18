@@ -1,0 +1,35 @@
+.hidenMenuDiv {
+  width: 200px;
+}
+
+.fullScreenGridDiv {
+  width: 100vw;
+  height: 100vh;
+}
+
+.addGridButton {
+  /* position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1; */
+  float: left;
+}
+
+.gridsComparisonContainer {
+  width: 98%;
+  -height: 500px;
+  margin-right: 1%;
+  margin-left: 1%;
+  margin-top: 1%;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.testingDiv {
+  width: 634px;
+
+  /* border: 1px solid red; */
+}
