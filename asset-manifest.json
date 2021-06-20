@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/stockholm_sky2/static/css/main.d79eaf1c.chunk.css",
-    "main.js": "/stockholm_sky2/static/js/main.b3209e18.chunk.js",
+    "main.css": "/stockholm_sky2/static/css/main.adbc145c.chunk.css",
+    "main.js": "/stockholm_sky2/static/js/main.218f005a.chunk.js",
     "runtime-main.js": "/stockholm_sky2/static/js/runtime-main.c076971e.js",
     "static/js/2.65d2f52d.chunk.js": "/stockholm_sky2/static/js/2.65d2f52d.chunk.js",
     "static/js/3.e1481540.chunk.js": "/stockholm_sky2/static/js/3.e1481540.chunk.js",
@@ -11,7 +11,7 @@
   "entrypoints": [
     "static/js/runtime-main.c076971e.js",
     "static/js/2.65d2f52d.chunk.js",
-    "static/css/main.d79eaf1c.chunk.css",
-    "static/js/main.b3209e18.chunk.js"
+    "static/css/main.adbc145c.chunk.css",
+    "static/js/main.218f005a.chunk.js"
   ]
 }
