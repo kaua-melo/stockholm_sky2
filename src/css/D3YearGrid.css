@@ -62,3 +62,14 @@ div.buttons {
 
   float: left;
 }
+
+.monthLabel {
+  font-size: 12px;
+
+  fill: rgb(150, 150, 150);
+}
+
+.monthLabel:hover {
+  cursor: pointer;
+  fill: rgb(0, 0, 0);
+}

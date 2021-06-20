@@ -24,8 +24,23 @@ function D3YearGrid(props) {
   // const [indexThreshold, setIndexThreshold] = useState(100);
   const [filterMin, setFilterMin] = useState(0);
   const [filterMax, setFilterMax] = useState(100);
+  const [monthNames, setMonthNames] = useState([
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ]);
 
   useEffect(() => {
+    console.log("useEffect 1");
     // The data should be all ready when we load this component :)
     // console.log("Inside D3YearGrid!");
     // console.log(props.data);
@@ -34,10 +49,11 @@ function D3YearGrid(props) {
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const width = parseInt(d3.select(".d3Container").style("width"));
     // const height = parseInt(d3.select(".d3Container").style("height"));
+    var svg_width = width - margin.left - margin.right;
     const height = 1 * width;
-    const gridGapX = 0;
-    const gridGapY = 0;
-    setGridGap({ x: gridGapX, y: gridGapY });
+    // const gridGapX = 0;
+    // const gridGapY = 0;
+    // setGridGap({ x: gridGapX, y: gridGapY });
 
     // set up the svg
     const svg_temp = d3
@@ -50,143 +66,152 @@ function D3YearGrid(props) {
 
     setSvg(svg_temp);
 
-    var svg_width = width;
+    const gridGapX = 0;
+    const gridGapY = 0;
+    setGridGap({ x: gridGapX, y: gridGapY });
+
     var n_recs_per_row = 20;
+    setNRecsPerRow(n_recs_per_row);
+
     var rec_w = Math.floor((0.7 * svg_width) / n_recs_per_row);
     var rec_h = rec_w;
-    setNRecsPerRow(n_recs_per_row);
     setRecs({ width: rec_w, height: rec_h });
-
-    // Add the rectangles
-    svg_temp
-      .selectAll("rect") // There's no 'rect' to select. But this is how we do to fill the svg with 'rects'.
-      .data(props.data) // here we load the data
-      .enter()
-      .append("rect") // .enter().append() -> for each datapoint in the dataset, add a 'rect'.
-      .attr("width", rec_w)
-      .attr("height", rec_h)
-      .attr("x", function (d, i) {
-        return (i % n_recs_per_row) * (rec_w + gridGapX) + 0.15 * svg_width;
-      })
-      .attr("y", function (d, i) {
-        return (
-          Math.floor(i / n_recs_per_row) * (rec_h + gridGapY) + 0.15 * svg_width
-        );
-      })
-      .attr("fill", function (d, i) {
-        var bright_color = [100, 146, 230];
-        var dark_color = [99, 112, 124];
-
-        var factor = Math.floor(d.c_index / 10) * 10;
-
-        // hard coding colors:
-        var color = [];
-        if (factor < 10) {
-          // 1.jpg
-          color = [100, 146, 230];
-        } else if (factor >= 10 && factor < 20) {
-          // 2.jpg
-          color = [99, 143, 224];
-        } else if (factor >= 20 && factor < 30) {
-          // 3.jpg
-          color = [96, 142, 214];
-        } else if (factor >= 30 && factor < 40) {
-          // 4.jpg
-          color = [94, 138, 204];
-        } else if (factor >= 40 && factor < 50) {
-          // 5.jpg
-          color = [94, 136, 193];
-        } else if (factor >= 50 && factor < 60) {
-          // 6.jpg
-          color = [93, 131, 182];
-        } else if (factor >= 60 && factor < 70) {
-          // 7.jpg
-          color = [93, 128, 170];
-        } else if (factor >= 70 && factor < 80) {
-          // 8.jpg
-          color = [95, 124, 154];
-        } else if (factor >= 80 && factor < 90) {
-          // 9.jpg
-          color = [97, 118, 138];
-        } else if (factor >= 90) {
-          // 10.jpg
-          color = [99, 112, 124];
-        }
-        return "rgba(" + color[0] + "," + color[1] + "," + color[2] + ", 1)";
-      })
-      .style("stroke-opacity", 1) // set the stroke opacity
-      .style("stroke", "black") // set the line colour
-      .style("stroke-width", 0.5) // set the stroke width
-
-      .html(function (d, i) {
-        return d.day_number;
-      });
-
-    var monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    // Adding month labels
-    svg_temp
-      .selectAll("text")
-      .data(monthNames)
-      .enter()
-      .append("text")
-      .text(function (d) {
-        return d;
-      })
-      .attr("x", -100)
-      .attr("y", function (d, i) {
-        return 130 + i * 45;
-      });
-
-    // We need to check if the year is a leap year because in that case the month
-    // of february has 29 days instead of 28. This will be essential for sorting
-    // the months visually.
-
-    if (props.data.length === 366) {
-      setMonthsLength({
-        1: 31,
-        2: 29, // February has 29 days in leap years
-        3: 31,
-        4: 30,
-        5: 31,
-        6: 30,
-        7: 31,
-        8: 31,
-        9: 30,
-        10: 31,
-        11: 30,
-        12: 31,
-      });
-    } else if (props.data.length === 365) {
-      setMonthsLength({
-        1: 31,
-        2: 28, // February has 28 days in non-leap years
-        3: 31,
-        4: 30,
-        5: 31,
-        6: 30,
-        7: 31,
-        8: 31,
-        9: 30,
-        10: 31,
-        11: 30,
-        12: 31,
-      });
-    }
   }, []);
+
+  // Once the svg state has been updated.
+  useEffect(() => {
+    console.log("useEffect 2");
+
+    // At the beginning of this hook component, we define svg (const [svg, setSvg] = useState(null);)
+    // So this function here will be called. That's why we have to check whether there's a 'svg' before
+    // we try to proceed
+    if (svg && recs && nRecsPerRow && gridGap) {
+      let svg_width = svg.style("width").replace("px", "");
+
+      // Add the rectangles
+      svg
+        .selectAll("rect") // There's no 'rect' to select. But this is how we do to fill the svg with 'rects'.
+        .data(props.data) // here we load the data
+        .enter()
+        .append("rect") // .enter().append() -> for each datapoint in the dataset, add a 'rect'.
+        .attr("width", recs.width)
+        .attr("height", recs.height)
+        .attr("x", function (d, i) {
+          return (
+            (i % nRecsPerRow) * (recs.width + gridGap.x) + 0.15 * svg_width
+          );
+        })
+        .attr("y", function (d, i) {
+          return (
+            Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+            0.15 * svg_width
+          );
+        })
+        .attr("fill", function (d, i) {
+          var bright_color = [100, 146, 230];
+          var dark_color = [99, 112, 124];
+
+          var factor = Math.floor(d.c_index / 10) * 10;
+
+          // hard coding colors:
+          var color = [];
+          if (factor < 10) {
+            // 1.jpg
+            color = [100, 146, 230];
+          } else if (factor >= 10 && factor < 20) {
+            // 2.jpg
+            color = [99, 143, 224];
+          } else if (factor >= 20 && factor < 30) {
+            // 3.jpg
+            color = [96, 142, 214];
+          } else if (factor >= 30 && factor < 40) {
+            // 4.jpg
+            color = [94, 138, 204];
+          } else if (factor >= 40 && factor < 50) {
+            // 5.jpg
+            color = [94, 136, 193];
+          } else if (factor >= 50 && factor < 60) {
+            // 6.jpg
+            color = [93, 131, 182];
+          } else if (factor >= 60 && factor < 70) {
+            // 7.jpg
+            color = [93, 128, 170];
+          } else if (factor >= 70 && factor < 80) {
+            // 8.jpg
+            color = [95, 124, 154];
+          } else if (factor >= 80 && factor < 90) {
+            // 9.jpg
+            color = [97, 118, 138];
+          } else if (factor >= 90) {
+            // 10.jpg
+            color = [99, 112, 124];
+          }
+          return "rgba(" + color[0] + "," + color[1] + "," + color[2] + ", 1)";
+        })
+        .style("stroke-opacity", 1) // set the stroke opacity
+        .style("stroke", "black") // set the line colour
+        .style("stroke-width", 0.5) // set the stroke width
+
+        .html(function (d, i) {
+          return d.day_number;
+        });
+
+      // Adding month labels
+      svg
+        .selectAll("text")
+        .data(monthNames)
+        .enter()
+        .append("text")
+        .text(function (d) {
+          return d;
+        })
+        .attr("x", 10)
+        .attr("y", function (d, i) {
+          return 97 + i * 33.5;
+        })
+        // .style("font-size", "12px")
+        .attr("class", "monthLabel")
+        // .style("fill", "rgb(150,150,150)")
+        .on("mouseover", handleMouseOverMonthLabel)
+        .on("mouseout", handleMouseOutMonthLabel);
+
+      // We need to check if the year is a leap year because in that case the month
+      // of february has 29 days instead of 28. This will be essential for sorting
+      // the months visually.
+
+      if (props.data.length === 366) {
+        setMonthsLength({
+          1: 31,
+          2: 29, // February has 29 days in leap years
+          3: 31,
+          4: 30,
+          5: 31,
+          6: 30,
+          7: 31,
+          8: 31,
+          9: 30,
+          10: 31,
+          11: 30,
+          12: 31,
+        });
+      } else if (props.data.length === 365) {
+        setMonthsLength({
+          1: 31,
+          2: 28, // February has 28 days in non-leap years
+          3: 31,
+          4: 30,
+          5: 31,
+          6: 30,
+          7: 31,
+          8: 31,
+          9: 30,
+          10: 31,
+          11: 30,
+          12: 31,
+        });
+      }
+    }
+  }, [svg, recs, nRecsPerRow, gridGap]);
 
   function handleSortLight() {
     // console.log("Sort Light");
@@ -223,9 +248,9 @@ function D3YearGrid(props) {
           .selectAll("text")
           .transition()
           .duration(2000)
-          .attr("x", -100)
+          .attr("x", -150)
           .attr("y", function (d, i) {
-            return 130 + i * 45;
+            return 97 + i * 33.5;
           });
       }
 
@@ -239,6 +264,8 @@ function D3YearGrid(props) {
     if (sortMethod !== 1) {
       // If the setState already dumped the dvg data into our svg variable
       if (svg) {
+        setSortMethod(1);
+
         let svg_width = svg.style("width").replace("px", "");
 
         svg
@@ -268,12 +295,10 @@ function D3YearGrid(props) {
           .selectAll("text")
           .transition()
           .duration(2000)
-          .attr("x", -100)
+          .attr("x", 10)
           .attr("y", function (d, i) {
-            return 130 + i * 45;
+            return 97 + i * 33.5;
           });
-
-        setSortMethod(1);
       }
     }
   }
@@ -284,6 +309,8 @@ function D3YearGrid(props) {
     if (sortMethod !== 3) {
       // If the setState already dumped the dvg data into our svg variable
       if (svg) {
+        setSortMethod(3);
+
         console.log("Group Month!");
 
         let svg_width = svg.style("width").replace("px", "");
@@ -614,8 +641,6 @@ function D3YearGrid(props) {
             }
           });
       }
-
-      setSortMethod(3);
     }
   }
 
@@ -778,6 +803,196 @@ function D3YearGrid(props) {
 
   function handlePlaySong() {
     setSortMethod(4);
+  }
+
+  // function handleMouseOverMonthLabel(d, i) {
+  function handleMouseOverMonthLabel(d, m) {
+    console.log("sortMethod [mouseOver]" + sortMethod);
+
+    if (svg && sortMethod === 1) {
+      let svg_width = svg.style("width").replace("px", "");
+
+      // REDUCING SIZES BUT NOT REPOSITIONING
+      // // Here we increase the dimensions of the squares
+      // svg
+      //   .selectAll("rect")
+      //   // Here we select only the specific month that the user hovered over.
+      //   .filter(function (d) {
+      //     if (d.month !== monthNames.indexOf(m) + 1) {
+      //       return d;
+      //     }
+      //   })
+      //   .transition()
+      //   .duration(400)
+      //   .attr("width", recs.width / 3)
+      //   .attr("height", recs.height / 3);
+
+      var new_width = recs.width * 1.2;
+      var new_height = recs.height * 1.2;
+
+      var smaller_width = recs.width / 2.2;
+      var smaller_height = recs.height / 2.2;
+
+      // TRYING TO REDUCE SIZES
+      svg
+        .selectAll("rect")
+        .transition()
+        .duration(400)
+        .attr("width", function (d, i) {
+          if (d.month === monthNames.indexOf(m) + 1) {
+            return recs.width; // keep the same size
+            // return new_width; // increasing
+          } else {
+            return recs.width / 2;
+          }
+        })
+        .attr("height", function (d, i) {
+          if (d.month === monthNames.indexOf(m) + 1) {
+            return recs.height; // keep the same size
+            // return new_height;
+          } else {
+            return recs.height / 2;
+          }
+        })
+        .attr("x", function (d, i) {
+          // If it's the month selected
+          if (d.month === monthNames.indexOf(m) + 1) {
+            return (
+              (i % nRecsPerRow) * (recs.width + gridGap.x) + 0.15 * svg_width
+            );
+          } else {
+            return (
+              (i % nRecsPerRow) * (recs.width + gridGap.x) +
+              0.15 * svg_width +
+              (recs.width / 2 - smaller_width / 2) // centralizing
+            );
+          }
+        })
+        .attr("y", function (d, i) {
+          if (d.month === monthNames.indexOf(m) + 1) {
+            return (
+              Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+              0.15 * svg_width
+            );
+          } else {
+            return (
+              Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+              0.15 * svg_width +
+              (recs.height / 2 - smaller_height / 2) // centralizing
+            );
+          }
+        });
+
+      // TRYING TO INCREASE SIZES
+      // svg
+      //   .selectAll("rect")
+      //   .transition()
+      //   .duration(400)
+      //   .attr("width", function (d, i) {
+      //     if (d.month === monthNames.indexOf(m) + 1) {
+      //       return new_width;
+      //     } else {
+      //       return recs.width;
+      //     }
+      //   })
+      //   .attr("height", function (d, i) {
+      //     if (d.month === monthNames.indexOf(m) + 1) {
+      //       return new_height;
+      //     } else {
+      //       return recs.height;
+      //     }
+      //   });
+      // .attr("x", function (d, i) {
+      //   // If it's the month selected
+      //   if (d.month === monthNames.indexOf(m) + 1) {
+      //     return (
+      //       (i % nRecsPerRow) * (new_width + gridGap.x) + 0.15 * svg_width
+      //     );
+      //   } else {
+      //     return (
+      //       (i % nRecsPerRow) * (recs.width + gridGap.x) + 0.15 * svg_width
+      //     );
+      //   }
+      // })
+      // .attr("y", function (d, i) {
+      //   if (d.month === monthNames.indexOf(m) + 1) {
+      //     return (
+      //       Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+      //       0.15 * svg_width
+      //     );
+      //   } else {
+      //     return (
+      //       Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+      //       0.15 * svg_width
+      //     );
+      //   }
+      // });
+    }
+  }
+
+  function handleMouseOutMonthLabel(d, m) {
+    if (svg && sortMethod === 1) {
+      // Here we get the squares back to their initial dimensions
+      // svg
+      //   .selectAll("rect")
+      //   // Here we select only the specific month that the user hovered over.
+      //   .filter(function (d) {
+      //     if (d.month !== monthNames.indexOf(m) + 1) {
+      //       return d;
+      //     }
+      //   })
+      //   .transition()
+      //   .duration(200)
+      //   .attr("width", recs.width)
+      //   .attr("height", recs.height);
+
+      let svg_width = svg.style("width").replace("px", "");
+
+      // TRYING TO REDUCE SIZES (Getting back to normal sizes and position)
+      svg
+        .selectAll("rect")
+        .transition()
+        .duration(400)
+        .attr("width", function (d, i) {
+          return recs.width;
+        })
+        .attr("height", function (d, i) {
+          return recs.height;
+        })
+        .attr("x", function (d, i) {
+          return (
+            (i % nRecsPerRow) * (recs.width + gridGap.x) + 0.15 * svg_width
+          );
+        })
+        .attr("y", function (d, i) {
+          return (
+            Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+            0.15 * svg_width
+          );
+        });
+
+      // svg
+      //   .selectAll("rect")
+      //   .transition()
+      //   .duration(400)
+      //   .attr("width", function (d, i) {
+      //     return recs.width;
+      //   })
+      //   .attr("height", function (d, i) {
+      //     return recs.height;
+      //   });
+      // // .attr("x", function (d, i) {
+      // //   return (
+      // //     (i % nRecsPerRow) * (recs.width + gridGap.x) + 0.15 * svg_width
+      // //   );
+      // // })
+      // // .attr("y", function (d, i) {
+      // //   return (
+      // //     Math.floor(i / nRecsPerRow) * (recs.height + gridGap.y) +
+      // //     0.15 * svg_width
+      // //   );
+      // // });
+    }
   }
 
   return (
