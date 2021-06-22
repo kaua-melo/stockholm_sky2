@@ -1,17 +1,29 @@
 {
   "files": {
     "main.css": "/stockholm_sky2/static/css/main.adbc145c.chunk.css",
-    "main.js": "/stockholm_sky2/static/js/main.218f005a.chunk.js",
-    "runtime-main.js": "/stockholm_sky2/static/js/runtime-main.c076971e.js",
-    "static/js/2.65d2f52d.chunk.js": "/stockholm_sky2/static/js/2.65d2f52d.chunk.js",
-    "static/js/3.e1481540.chunk.js": "/stockholm_sky2/static/js/3.e1481540.chunk.js",
+    "main.js": "/stockholm_sky2/static/js/main.eb002a16.chunk.js",
+    "runtime-main.js": "/stockholm_sky2/static/js/runtime-main.2f13579e.js",
+    "static/js/2.72d47962.chunk.js": "/stockholm_sky2/static/js/2.72d47962.chunk.js",
+    "static/js/3.5ef006f1.chunk.js": "/stockholm_sky2/static/js/3.5ef006f1.chunk.js",
     "index.html": "/stockholm_sky2/index.html",
-    "static/js/2.65d2f52d.chunk.js.LICENSE.txt": "/stockholm_sky2/static/js/2.65d2f52d.chunk.js.LICENSE.txt"
+    "static/js/2.72d47962.chunk.js.LICENSE.txt": "/stockholm_sky2/static/js/2.72d47962.chunk.js.LICENSE.txt",
+    "static/media/Piano1.db6a4a96.mp3": "/stockholm_sky2/static/media/Piano1.db6a4a96.mp3",
+    "static/media/Piano10.04d3b07a.mp3": "/stockholm_sky2/static/media/Piano10.04d3b07a.mp3",
+    "static/media/Piano11.64e6eeef.mp3": "/stockholm_sky2/static/media/Piano11.64e6eeef.mp3",
+    "static/media/Piano12.ff2269a6.mp3": "/stockholm_sky2/static/media/Piano12.ff2269a6.mp3",
+    "static/media/Piano2.7d024f22.mp3": "/stockholm_sky2/static/media/Piano2.7d024f22.mp3",
+    "static/media/Piano3.fa739e95.mp3": "/stockholm_sky2/static/media/Piano3.fa739e95.mp3",
+    "static/media/Piano4.4cf0a219.mp3": "/stockholm_sky2/static/media/Piano4.4cf0a219.mp3",
+    "static/media/Piano5.d67aca89.mp3": "/stockholm_sky2/static/media/Piano5.d67aca89.mp3",
+    "static/media/Piano6.a2e3aba7.mp3": "/stockholm_sky2/static/media/Piano6.a2e3aba7.mp3",
+    "static/media/Piano7.f4d810a1.mp3": "/stockholm_sky2/static/media/Piano7.f4d810a1.mp3",
+    "static/media/Piano8.d60869c4.mp3": "/stockholm_sky2/static/media/Piano8.d60869c4.mp3",
+    "static/media/Piano9.e795a0f0.mp3": "/stockholm_sky2/static/media/Piano9.e795a0f0.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.c076971e.js",
-    "static/js/2.65d2f52d.chunk.js",
+    "static/js/runtime-main.2f13579e.js",
+    "static/js/2.72d47962.chunk.js",
     "static/css/main.adbc145c.chunk.css",
-    "static/js/main.218f005a.chunk.js"
+    "static/js/main.eb002a16.chunk.js"
   ]
 }
